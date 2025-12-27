@@ -1,3 +1,5 @@
+'use client';
+
 import { ComponentProps } from 'react';
 import * as S from './InputBase.styles';
 
