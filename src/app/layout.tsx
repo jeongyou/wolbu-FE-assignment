@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import './globals.css';
+import EmotionRegistry from '@/shared/styles/EmotionRegistry';
 import AppWrapper from '@/shared/components/AppWrapper';
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <AppWrapper>{children}</AppWrapper>
+        <EmotionRegistry>
+          <AppWrapper>{children}</AppWrapper>
+        </EmotionRegistry>
       </body>
     </html>
   );
