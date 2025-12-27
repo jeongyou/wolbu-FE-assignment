@@ -7,9 +7,12 @@ import RoleSelect, { Role } from '../RoleSelect';
 import { useState } from 'react';
 import ConfirmButton from '../ConfirmButton';
 import NameField from './NameField';
+import EmailField from './EmailField';
+import { validateEmail } from '../../utils/validators';
 
 type SignUpFormValues = {
   name: string;
+  email: string;
 };
 
 const SignUpForm = () => {
@@ -20,6 +23,7 @@ const SignUpForm = () => {
   } = useForm<SignUpFormValues>({
     defaultValues: {
       name: '',
+      email: '',
     },
     mode: 'onBlur',
   });
@@ -37,9 +41,10 @@ const SignUpForm = () => {
           error={errors.name}
         />
 
-        <Input label='이메일'>
-          <InputBase />
-        </Input>
+        <EmailField
+          registration={register('email', { validate: validateEmail })}
+          error={errors.email}
+        />
 
         <Input label='휴대폰 번호'>
           <InputBase />
