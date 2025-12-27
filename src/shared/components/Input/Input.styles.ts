@@ -16,6 +16,7 @@ export const Label = styled.label`
 export const Helper = styled.span`
   font-size: 12px;
   color: ${theme.semantic.textSecondary};
+  white-space: pre-line;
 `;
 
 export const Error = styled.span`
