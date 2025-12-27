@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+
 import './globals.css';
+import AppWrapper from '@/shared/components/AppWrapper';
 
 export const metadata: Metadata = {
   title: '월급쟁이 부자들 과제',
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body>{children}</body>
+      <body>
+        <AppWrapper>{children}</AppWrapper>
+      </body>
     </html>
   );
 }
