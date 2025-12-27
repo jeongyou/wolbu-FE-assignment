@@ -10,6 +10,7 @@ import NameField from './NameField';
 import EmailField from './EmailField';
 import PhoneField from './PhoneField';
 
+import { useNameField } from '../../hooks/useNameField';
 import { usePhoneField } from '../../hooks/usePhoneField';
 import { useEmailField } from '../../hooks/useEmailField';
 import { SignUpFormValues } from '../../types';
@@ -35,6 +36,8 @@ const SignUpForm = () => {
     console.log({ ...values, phone: formatPhone(values.phone) });
   };
 
+  const { registration: nameRegistration } = useNameField({ register });
+
   const { registration: emailRegistration } = useEmailField({ register });
   const {
     phoneValue,
@@ -47,10 +50,7 @@ const SignUpForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Flex direction='column' gap={16}>
-        <NameField
-          registration={register('name', { required: '이름을 입력해주세요' })}
-          error={errors.name}
-        />
+        <NameField registration={nameRegistration} error={errors.name} />
 
         <EmailField registration={emailRegistration} error={errors.email} />
 
