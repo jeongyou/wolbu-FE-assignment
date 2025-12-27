@@ -1,3 +1,5 @@
+'use client';
+
 import { theme } from '@/shared/styles/theme';
 import styled from '@emotion/styled';
 
