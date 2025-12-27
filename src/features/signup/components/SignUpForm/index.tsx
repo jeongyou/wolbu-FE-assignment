@@ -8,29 +8,40 @@ import { useState } from 'react';
 import ConfirmButton from '../ConfirmButton';
 import NameField from './NameField';
 import EmailField from './EmailField';
-import { validateEmail } from '../../utils/validators';
+import PhoneField from './PhoneField';
 
-type SignUpFormValues = {
-  name: string;
-  email: string;
-};
+import { usePhoneField } from '../../hooks/usePhoneField';
+import { useEmailField } from '../../hooks/useEmailField';
+import { SignUpFormValues } from '../../types';
+import { formatPhone } from '../../utils/validatePhone';
 
 const SignUpForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<SignUpFormValues>({
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
     },
     mode: 'onBlur',
   });
 
   const onSubmit = (values: SignUpFormValues) => {
-    console.log(values);
+    console.log({ ...values, phone: formatPhone(values.phone) });
   };
+
+  const { registration: emailRegistration } = useEmailField({ register });
+  const {
+    phoneValue,
+    registration: phoneRegistration,
+    handleChange: handlePhoneChange,
+    handleBlur: handlePhoneBlur,
+  } = usePhoneField({ register, setValue, watch });
 
   const [role, setRole] = useState<Role | null>(null);
   return (
@@ -41,14 +52,15 @@ const SignUpForm = () => {
           error={errors.name}
         />
 
-        <EmailField
-          registration={register('email', { validate: validateEmail })}
-          error={errors.email}
-        />
+        <EmailField registration={emailRegistration} error={errors.email} />
 
-        <Input label='휴대폰 번호'>
-          <InputBase />
-        </Input>
+        <PhoneField
+          registration={phoneRegistration}
+          value={phoneValue}
+          error={errors.phone}
+          onChange={handlePhoneChange}
+          onBlur={handlePhoneBlur}
+        />
 
         <Input
           label='비밀번호'
