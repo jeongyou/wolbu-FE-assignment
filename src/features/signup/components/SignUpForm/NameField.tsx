@@ -11,7 +11,12 @@ type NameFieldProps = {
 const NameField = ({ registration, error }: NameFieldProps) => {
   return (
     <Input label='이름' error={error?.message}>
-      <InputBase placeholder='이름을 입력해주세요' {...registration} />
+      <InputBase
+        placeholder='이름을 입력해주세요'
+        type='text'
+        autoComplete='name'
+        {...registration}
+      />
     </Input>
   );
 };

@@ -23,6 +23,7 @@ const PhoneField = ({
     <Input label='휴대폰 번호' error={error?.message}>
       <InputBase
         placeholder='010-1234-5678'
+        type='tel'
         inputMode='tel'
         autoComplete='tel-national'
         {...registration}
