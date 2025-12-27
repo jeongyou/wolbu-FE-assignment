@@ -8,7 +8,7 @@ type UseRoleFieldParams = {
 
 export const useRoleField = ({ register }: UseRoleFieldParams) => {
   const registration = register('role', {
-    required: '회원 유형을 선택해주세요',
+    required: '회원 유형은 필수로 선택해야 합니다',
   });
 
   return { registration };

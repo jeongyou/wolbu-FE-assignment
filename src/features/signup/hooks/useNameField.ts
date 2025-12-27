@@ -9,7 +9,7 @@ type UseNameFieldParams = {
 
 export const useNameField = ({ register }: UseNameFieldParams) => {
   const registration = register('name', {
-    required: '이름을 입력해주세요',
+    required: '이름은 필수 입력입니다',
     setValueAs: trimName,
   });
 

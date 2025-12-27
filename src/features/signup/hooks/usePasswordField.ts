@@ -9,7 +9,7 @@ type UsePasswordFieldParams = {
 
 export const usePasswordField = ({ register }: UsePasswordFieldParams) => {
   const registration = register('password', {
-    required: '비밀번호를 입력해주세요',
+    required: '비밀번호는 필수 입력입니다',
     validate: validatePassword,
   });
 

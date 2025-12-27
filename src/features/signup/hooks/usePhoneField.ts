@@ -24,7 +24,7 @@ export const usePhoneField = ({
   watch,
 }: UsePhoneFieldParams) => {
   const registration = register('phone', {
-    required: '전화번호를 입력해주세요',
+    required: '전화번호는 필수 입력입니다',
     validate: validatePhone,
   });
 
