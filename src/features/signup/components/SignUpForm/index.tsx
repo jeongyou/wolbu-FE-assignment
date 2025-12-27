@@ -1,22 +1,21 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Input } from '@/shared/components/Input';
 import { Flex } from '@/shared/components/Flex';
-import RoleSelect, { Role } from '../RoleSelect';
-import { useState } from 'react';
 import ConfirmButton from '../ConfirmButton';
 import NameField from './NameField';
 import EmailField from './EmailField';
 import PhoneField from './PhoneField';
+import PasswordField from './PasswordField';
+import RoleField from './RoleField';
 
 import { useNameField } from '../../hooks/useNameField';
 import { usePhoneField } from '../../hooks/usePhoneField';
 import { useEmailField } from '../../hooks/useEmailField';
+import { usePasswordField } from '../../hooks/usePasswordField';
+import { useRoleField } from '../../hooks/useRoleField';
 import { SignUpFormValues } from '../../types';
 import { formatPhone } from '../../utils/validatePhone';
-import PasswordField from './PasswordField';
-import { usePasswordField } from '../../hooks/usePasswordField';
 
 const SignUpForm = () => {
   const {
@@ -31,6 +30,7 @@ const SignUpForm = () => {
       email: '',
       phone: '',
       password: '',
+      role: 'STUDENT',
     },
     mode: 'onBlur',
   });
@@ -50,8 +50,8 @@ const SignUpForm = () => {
   } = usePhoneField({ register, setValue, watch });
 
   const { registration: passwordRegistration } = usePasswordField({ register });
+  const { registration: roleRegistration } = useRoleField({ register });
 
-  const [role, setRole] = useState<Role | null>(null);
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Flex direction='column' gap={16}>
@@ -72,9 +72,7 @@ const SignUpForm = () => {
           error={errors.password}
         />
 
-        <Input label='회원 유형'>
-          <RoleSelect value={role} onChange={setRole} />
-        </Input>
+        <RoleField registration={roleRegistration} error={errors.role} />
 
         <ConfirmButton>가입하기</ConfirmButton>
       </Flex>
