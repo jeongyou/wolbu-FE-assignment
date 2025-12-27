@@ -21,7 +21,7 @@ const SignUpForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
     setValue,
     watch,
   } = useForm<SignUpFormValues>({
@@ -32,7 +32,7 @@ const SignUpForm = () => {
       password: '',
       role: 'STUDENT',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmit = (values: SignUpFormValues) => {
@@ -74,7 +74,9 @@ const SignUpForm = () => {
 
         <RoleField registration={roleRegistration} error={errors.role} />
 
-        <ConfirmButton>가입하기</ConfirmButton>
+        <ConfirmButton disabled={!isValid} loading={isSubmitting}>
+          가입하기
+        </ConfirmButton>
       </Flex>
     </form>
   );
