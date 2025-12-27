@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Input, InputBase } from '@/shared/components/Input';
+import { Input } from '@/shared/components/Input';
 import { Flex } from '@/shared/components/Flex';
 import RoleSelect, { Role } from '../RoleSelect';
 import { useState } from 'react';
@@ -15,6 +15,8 @@ import { usePhoneField } from '../../hooks/usePhoneField';
 import { useEmailField } from '../../hooks/useEmailField';
 import { SignUpFormValues } from '../../types';
 import { formatPhone } from '../../utils/validatePhone';
+import PasswordField from './PasswordField';
+import { usePasswordField } from '../../hooks/usePasswordField';
 
 const SignUpForm = () => {
   const {
@@ -28,6 +30,7 @@ const SignUpForm = () => {
       name: '',
       email: '',
       phone: '',
+      password: '',
     },
     mode: 'onBlur',
   });
@@ -46,6 +49,8 @@ const SignUpForm = () => {
     handleBlur: handlePhoneBlur,
   } = usePhoneField({ register, setValue, watch });
 
+  const { registration: passwordRegistration } = usePasswordField({ register });
+
   const [role, setRole] = useState<Role | null>(null);
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -62,13 +67,10 @@ const SignUpForm = () => {
           onBlur={handlePhoneBlur}
         />
 
-        <Input
-          label='비밀번호'
-          helperText={`• 최소 6자 이상 10자 이하
-• 영문 소문자, 대문자, 숫자 중 최소 두 가지 이상 조합 필요`}
-        >
-          <InputBase />
-        </Input>
+        <PasswordField
+          registration={passwordRegistration}
+          error={errors.password}
+        />
 
         <Input label='회원 유형'>
           <RoleSelect value={role} onChange={setRole} />
