@@ -15,7 +15,7 @@ const Input = ({ label, error, helperText, children }: InputProps) => {
     <S.Container>
       <S.Label>{label}</S.Label>
       {children}
-      {helperText && !error && <S.Helper>{helperText}</S.Helper>}
+      {helperText && <S.Helper>{helperText}</S.Helper>}
       {error && <S.Error>{error}</S.Error>}
     </S.Container>
   );
