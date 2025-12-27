@@ -23,7 +23,11 @@ export const usePhoneField = ({
   setValue,
   watch,
 }: UsePhoneFieldParams) => {
-  const registration = register('phone', { validate: validatePhone });
+  const registration = register('phone', {
+    required: '전화번호를 입력해주세요',
+    validate: validatePhone,
+  });
+
   const phoneValue = watch('phone');
 
   const handleChange = (nextValue: string) => {

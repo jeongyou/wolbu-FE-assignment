@@ -8,7 +8,10 @@ type UseEmailFieldParams = {
 };
 
 export const useEmailField = ({ register }: UseEmailFieldParams) => {
-  const registration = register('email', { validate: validateEmail });
+  const registration = register('email', {
+    required: '이메일을 입력해주세요',
+    validate: validateEmail,
+  });
 
   return {
     registration,
