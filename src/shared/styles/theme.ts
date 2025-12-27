@@ -23,4 +23,10 @@ export const theme = {
       450: '#0048FF',
     },
   },
+  semantic: {
+    textPrimary: '#030303',
+    textSecondary: '#495361',
+    border: '#E6E8EB',
+    error: '#E03131',
+  },
 };
