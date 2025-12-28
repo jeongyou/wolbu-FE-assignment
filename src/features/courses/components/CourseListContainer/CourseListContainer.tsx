@@ -10,7 +10,7 @@ import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
 import BottomActionBar from '../BottomActionBar/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
-import { useApplyCourses } from '../../hooks/useApplyCourses';
+import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
