@@ -18,8 +18,8 @@ export const useApplyCourse = () => {
     }
 
     try {
-      await apply(courseId);
-      showToast('수강 신청이 완료되었습니다');
+      const result = await apply(courseId);
+      showToast(`"${result.courseTitle}" 신청 완료`);
     } catch (error) {
       if (error instanceof HttpError && error.payload?.message) {
         showToast(error.payload.message);
