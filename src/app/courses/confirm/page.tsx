@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Header from '@/shared/components/Header';
 import { useRouter } from 'next/navigation';
 import {
@@ -12,20 +12,8 @@ import * as S from './styles';
 import BottomActionBar from '@/features/courses/components/BottomActionBar/BottomActionBar';
 
 const ConfirmPage = () => {
-  const [result, setResult] = useState<EnrollResultStorage | null>(null);
+  const [result] = useState<EnrollResultStorage | null>(() => readEnrollResult());
   const router = useRouter();
-
-  const updateResult = (stored: EnrollResultStorage | null) => {
-    setResult(stored);
-  };
-
-  useEffect(() => {
-    const getResult = () => {
-      const stored = readEnrollResult();
-      updateResult(stored);
-    };
-    getResult();
-  }, []);
 
   const handleBack = () => {
     clearEnrollResult();
