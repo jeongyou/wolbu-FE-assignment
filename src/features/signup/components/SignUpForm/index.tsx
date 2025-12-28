@@ -14,8 +14,8 @@ import { usePhoneField } from '../../hooks/usePhoneField';
 import { useEmailField } from '../../hooks/useEmailField';
 import { usePasswordField } from '../../hooks/usePasswordField';
 import { useRoleField } from '../../hooks/useRoleField';
+import { useSignUpSubmit } from '../../hooks/useSignUpSubmit';
 import { SignUpFormValues } from '../../types';
-import { formatPhone } from '../../utils/validatePhone';
 
 const SignUpForm = () => {
   const {
@@ -24,6 +24,7 @@ const SignUpForm = () => {
     formState: { errors, isValid, isSubmitting },
     setValue,
     watch,
+    setError,
   } = useForm<SignUpFormValues>({
     defaultValues: {
       name: '',
@@ -35,9 +36,9 @@ const SignUpForm = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: SignUpFormValues) => {
-    console.log({ ...values, phone: formatPhone(values.phone) });
-  };
+  const { handleSubmit: handleSignUpSubmit, signUpLoading } = useSignUpSubmit({
+    setError,
+  });
 
   const { registration: nameRegistration } = useNameField({ register });
 
@@ -53,7 +54,7 @@ const SignUpForm = () => {
   const { registration: roleRegistration } = useRoleField({ register });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={handleSubmit(handleSignUpSubmit)} noValidate>
       <Flex direction='column' gap={16}>
         <NameField registration={nameRegistration} error={errors.name} />
 
@@ -74,7 +75,10 @@ const SignUpForm = () => {
 
         <RoleField registration={roleRegistration} error={errors.role} />
 
-        <ConfirmButton disabled={!isValid} loading={isSubmitting}>
+        <ConfirmButton
+          disabled={!isValid}
+          loading={isSubmitting || signUpLoading}
+        >
           가입하기
         </ConfirmButton>
       </Flex>
