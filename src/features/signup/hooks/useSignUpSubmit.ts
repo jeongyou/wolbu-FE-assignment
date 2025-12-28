@@ -9,7 +9,7 @@ import { postSignUp, SignUpResponse } from '../api/postSignUp';
 import { formatPhone } from '../utils/validatePhone';
 import { SignUpFormValues } from '../types';
 import { postLogin } from '@/features/auth/api/postLogin';
-import { saveAccessToken } from '@/shared/auth/authStorage';
+import { saveAccessToken, saveAuthUser } from '@/shared/auth/authStorage';
 
 type UseSignUpSubmitParams = {
   setError: UseFormSetError<SignUpFormValues>;
@@ -49,6 +49,11 @@ export const useSignUpSubmit = ({
         password: values.password,
       });
       saveAccessToken(loginResponse.accessToken);
+      saveAuthUser({
+        name: loginResponse.user.name,
+        role: loginResponse.user.role,
+      });
+
       if (response?.message) {
         onSuccess?.(response.message);
       }
