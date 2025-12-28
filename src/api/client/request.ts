@@ -1,5 +1,6 @@
 import { buildUrl } from './url';
 import { HttpError } from './error';
+import { BASE_URL } from './config';
 import type { RequestOptions, ServerErrorResponse } from './types';
 
 const fallbackError = (status?: number): ServerErrorResponse => ({
@@ -24,7 +25,7 @@ export const request = async <T>(
   path: string,
   { method = 'GET', params, body, token, headers, cache }: RequestOptions = {},
 ): Promise<T> => {
-  const url = buildUrl(path, params);
+  const url = new URL(buildUrl(path, params), BASE_URL).toString();
 
   const mergedHeaders: HeadersInit = {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
