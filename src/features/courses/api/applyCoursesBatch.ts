@@ -1,11 +1,11 @@
 import { http } from '@/api/client';
 import { getAccessToken } from '@/shared/auth/authStorage';
 
-type ApplyCoursesRequest = {
+type ApplyCoursesBatchRequest = {
   courseIds: number[];
 };
 
-export type ApplyCoursesResponse = {
+export type ApplyCoursesBatchResponse = {
   success: {
     enrollmentId: number;
     courseId: number;
@@ -19,14 +19,16 @@ export type ApplyCoursesResponse = {
 
 export const applyCoursesBatch = async (
   courseIds: number[]
-): Promise<ApplyCoursesResponse> => {
+): Promise<ApplyCoursesBatchResponse> => {
   const token = getAccessToken();
   const path = '/api/enrollments/batch';
-  const body: ApplyCoursesRequest = { courseIds };
+  const body: ApplyCoursesBatchRequest = { courseIds };
 
   if (token) {
-    return http.post<ApplyCoursesResponse>(path, body, undefined, { token });
+    return http.post<ApplyCoursesBatchResponse>(path, body, undefined, {
+      token,
+    });
   }
 
-  return http.post<ApplyCoursesResponse>(path, body);
+  return http.post<ApplyCoursesBatchResponse>(path, body);
 };
