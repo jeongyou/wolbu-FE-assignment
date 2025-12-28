@@ -22,10 +22,8 @@ const CourseListContainer = ({
     initialParams.sort ?? 'recent'
   );
 
-  const { courses, error, loading, hasMore, sentinelRef } = useCourseInfinite(
-    initialPage,
-    { ...initialParams, sort }
-  );
+  const { courses, error, loading, hasMore, sentinelRef, setParams } =
+    useCourseInfinite(initialPage, initialParams);
 
   return (
     <>
@@ -34,6 +32,7 @@ const CourseListContainer = ({
           value={sort ?? 'recent'}
           onChange={(next) => {
             setSort(next);
+            setParams({ ...initialParams, sort: next });
           }}
         />
       </Flex>
