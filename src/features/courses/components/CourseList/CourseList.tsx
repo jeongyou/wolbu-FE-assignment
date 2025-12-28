@@ -18,8 +18,8 @@ const CourseList = ({ courses }: CourseListProps) => {
   return (
     <>
       <S.List>
-        {courses.map((course) => (
-          <li key={course.id}>
+        {courses.map((course, index) => (
+          <li key={`${course.id}-${index}`}>
             <CourseCard
               course={course}
               checked={isSelected(course.id)}
