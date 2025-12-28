@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 
-import { SignUpFormValues } from '../types';
-import { trimName } from '../utils/normalizeName';
+import { SignUpFormValues } from '../../types';
+import { trimName } from '../../utils/normalizeName';
 
 type UseNameFieldParams = {
   register: UseFormRegister<SignUpFormValues>;

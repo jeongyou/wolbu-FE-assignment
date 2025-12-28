@@ -5,12 +5,12 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 
-import { SignUpFormValues } from '../types';
+import { SignUpFormValues } from '../../types';
 import {
   formatPhone,
   normalizePhone,
   validatePhone,
-} from '../utils/validatePhone';
+} from '../../utils/validatePhone';
 
 type UsePhoneFieldParams = {
   register: UseFormRegister<SignUpFormValues>;

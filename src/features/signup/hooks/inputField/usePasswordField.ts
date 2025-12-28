@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 
-import { SignUpFormValues } from '../types';
-import { validatePassword } from '../utils/validatePassword';
+import { SignUpFormValues } from '../../types';
+import { validatePassword } from '../../utils/validatePassword';
 
 type UsePasswordFieldParams = {
   register: UseFormRegister<SignUpFormValues>;

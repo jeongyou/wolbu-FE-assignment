@@ -3,20 +3,22 @@
 import { useForm } from 'react-hook-form';
 import { Flex } from '@/shared/components/Flex';
 import ConfirmButton from '../ConfirmButton';
-import NameField from './NameField';
-import EmailField from './EmailField';
-import PhoneField from './PhoneField';
-import PasswordField from './PasswordField';
-import RoleField from './RoleField';
 
-import { useNameField } from '../../hooks/useNameField';
-import { usePhoneField } from '../../hooks/usePhoneField';
-import { useEmailField } from '../../hooks/useEmailField';
-import { usePasswordField } from '../../hooks/usePasswordField';
-import { useRoleField } from '../../hooks/useRoleField';
+import PhoneField from './inputField/PhoneField';
+import PasswordField from './inputField/PasswordField';
+import RoleField from './inputField/RoleField';
+import NameField from './inputField/NameField';
+import EmailField from './inputField/EmailField';
+
+import { useNameField } from '../../hooks/inputField/useNameField';
+import { usePhoneField } from '../../hooks/inputField/usePhoneField';
+
+import { usePasswordField } from '../../hooks/inputField/usePasswordField';
+import { useRoleField } from '../../hooks/inputField/useRoleField';
 import { useSignUpSubmit } from '../../hooks/useSignUpSubmit';
 import { SignUpFormValues } from '../../types';
 import { useToastContext } from '@/shared/components/Toast/ToastProvider';
+import { useEmailField } from '../../hooks/inputField/useEmailField';
 
 const SignUpForm = () => {
   const {
