@@ -8,6 +8,7 @@ import SortSelect from '../SortSelect/SortSelect';
 import * as S from './CourseListContainer.styles';
 import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
+import BottomActionBar from '../BottomActionBar/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
 
 type CourseListContainerProps = {
@@ -48,6 +49,16 @@ const CourseListContainer = ({
       {loading && <S.Status>불러오는 중...</S.Status>}
       {!hasMore && <S.Status>더 불러올 강의가 없습니다</S.Status>}
       <S.Sentinel ref={sentinelRef} />
+      <BottomActionBar
+        label={
+          selectedCount > 0 ? `수강 신청 하기  (${selectedCount})` : '수강 신청 하기 '
+        }
+        disabled={selectedCount === 0}
+        onClick={() => {
+          // TODO: 신청 API 연동 시 selectedIdList 사용
+          console.log('apply courses', selectedIdList);
+        }}
+      />
     </>
   );
 };
