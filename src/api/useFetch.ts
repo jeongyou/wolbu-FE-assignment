@@ -33,7 +33,11 @@ export const useFetch = <T, Params extends unknown[]>(
 
   // 최초 1회 자동 실행
   useEffect(() => {
-    if (params) refetch(...params);
+    if (params) {
+      refetch(...params);
+    }
+    // params는 refetch 콜백 인자로만 사용하므로 deps에서 제외
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refetch]);
 
   return { data, loading, error, refetch };
