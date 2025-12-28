@@ -10,6 +10,7 @@ import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
 import BottomActionBar from '../BottomActionBar/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
+import { useApplyCourses } from '../../hooks/useApplyCourses';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -28,6 +29,7 @@ const CourseListContainer = ({
     useCourseInfinite(initialPage, initialParams);
   const { isSelected, toggle, selectedCount, selectedIdList } =
     useCourseSelection();
+  const { applyCourses, loading: applyLoading } = useApplyCourses();
 
   return (
     <>
@@ -53,10 +55,9 @@ const CourseListContainer = ({
         label={
           selectedCount > 0 ? `수강 신청 하기  (${selectedCount})` : '수강 신청 하기 '
         }
-        disabled={selectedCount === 0}
+        disabled={selectedCount === 0 || applyLoading}
         onClick={() => {
-          // TODO: 신청 API 연동 시 selectedIdList 사용
-          console.log('apply courses', selectedIdList);
+          applyCourses(selectedIdList);
         }}
       />
     </>
