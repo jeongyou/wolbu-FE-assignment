@@ -9,10 +9,12 @@ import {
   readEnrollResult,
 } from '@/features/courses/utils/enrollResultStorage';
 import * as S from './styles';
-import BottomActionBar from '@/features/courses/components/BottomActionBar/BottomActionBar';
+import BottomActionBar from '@/features/courses/components/BottomActionBar';
 
 const ConfirmPage = () => {
-  const [result] = useState<EnrollResultStorage | null>(() => readEnrollResult());
+  const [result] = useState<EnrollResultStorage | null>(() =>
+    readEnrollResult()
+  );
   const router = useRouter();
 
   const handleBack = () => {

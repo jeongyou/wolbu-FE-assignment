@@ -1,6 +1,6 @@
 import Header from '@/shared/components/Header';
 import { getCourses } from '@/features/courses/api/getCourses';
-import CourseListContainer from '@/features/courses/components/CourseListContainer/CourseListContainer';
+import CourseListContainer from '@/features/courses/components/CourseListContainer';
 import { GetCoursesParams } from '@/features/courses/api/types';
 
 const LecturesPage = async () => {

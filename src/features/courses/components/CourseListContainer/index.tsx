@@ -3,12 +3,12 @@
 import { useMemo, useState } from 'react';
 
 import type { CoursePage, GetCoursesParams } from '../../api/types';
-import CourseList from '../CourseList/CourseList';
-import SortSelect from '../SortSelect/SortSelect';
+import CourseList from '../CourseList';
+import SortSelect from '../SortSelect';
 import * as S from './CourseListContainer.styles';
 import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
-import BottomActionBar from '../BottomActionBar/BottomActionBar';
+import BottomActionBar from '../BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
 import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
 
