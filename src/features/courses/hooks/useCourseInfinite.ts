@@ -4,70 +4,73 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { getCourses } from '../api/getCourses';
 import type { CoursePage, GetCoursesParams } from '../api/types';
+import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
+import { useCoursePagesState } from './useCoursePagesState';
 
 /**
- * 강의 목록 무한 스크롤을 위한 상태, 로직 훅
- * - 초기 페이지를 받아 클라이언트에서 추가 페이지를 붙인다.
- * - IntersectionObserver로 하단 센티널이 보이면 다음 페이지를 로드한다.
- * - 서버가 같은 ID를 여러 번 내려줘도 중복 없이 보여주려면 getCourses 응답에서 보장되어야 함(현재는 그대로 이어붙임).
+ * 강의 목록 무한 스크롤 훅
+ *
+ * - 서버에서 정렬/페이지네이션된 강의 목록을 받아 클라이언트에서 이어 붙인다.
+ * - 하단 센티널이 화면에 들어오면 다음 페이지를 요청한다.
+ * - 정렬/필터 params가 변경되면 목록을 초기화하고 첫 페이지부터 다시 로드한다.
  */
 export const useCourseInfinite = (
   initialPage: CoursePage,
   initialParams: GetCoursesParams
 ) => {
-  const [courses, setCourses] = useState(initialPage.courses);
-  const [page, setPage] = useState(initialPage.currentPage);
-  const [totalPages, setTotalPages] = useState(initialPage.totalPages);
+  const {
+    courses,
+    page,
+    hasMore,
+    reset,
+    replaceWithFirstPage,
+    appendNextPage,
+  } = useCoursePagesState(initialPage);
+
+  const [params, setParams] = useState(initialParams);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
-
-  const hasMore = page < totalPages - 1;
 
   const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
     setError(null);
+
     try {
-      const nextPage = page + 1;
-      const next = await getCourses({ ...initialParams, page: nextPage });
-      setCourses((prev) => [...prev, ...next.courses]);
-      setPage(next.currentPage);
-      setTotalPages(next.totalPages);
-    } catch (err) {
+      const next = await getCourses({ ...params, page: page + 1 });
+      appendNextPage(next);
+    } catch {
       setError('강의를 불러오는 중 오류가 발생했습니다');
     } finally {
       setLoading(false);
     }
-  }, [hasMore, loading, page, initialParams]);
+  }, [appendNextPage, hasMore, loading, page, params]);
+
+  useIntersectionObserver(sentinelRef, loadMore, {
+    enabled: hasMore,
+    rootMargin: '200px 0px',
+  });
 
   useEffect(() => {
-    if (!hasMore) return;
+    const fetchFirst = async () => {
+      setLoading(true);
+      setError(null);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const isIntersecting = entries.some((entry) => entry.isIntersecting);
-        if (isIntersecting) loadMore();
-      },
-      { rootMargin: '200px 0px' }
-    );
-
-    const target = sentinelRef.current;
-    if (target) observer.observe(target);
-
-    return () => {
-      if (target) observer.unobserve(target);
-      observer.disconnect();
+      try {
+        const first = await getCourses({ ...params, page: 0 });
+        replaceWithFirstPage(first);
+      } catch {
+        setError('강의를 불러오는 중 오류가 발생했습니다');
+      } finally {
+        setLoading(false);
+      }
     };
-  }, [hasMore, loadMore]);
 
-  return {
-    courses,
-    loading,
-    error,
-    hasMore,
-    sentinelRef,
-  };
+    fetchFirst();
+  }, [params, reset, replaceWithFirstPage]);
+
+  return { courses, loading, error, hasMore, sentinelRef, setParams };
 };
