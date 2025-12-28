@@ -9,7 +9,7 @@ import {
   readEnrollResult,
 } from '@/features/courses/utils/enrollResultStorage';
 import * as S from './styles';
-import BottomActionBar from '@/features/courses/components/BottomActionBar';
+import BottomActionBar from '@/shared/components/BottomActionBar';
 
 const ConfirmPage = () => {
   const [result] = useState<EnrollResultStorage | null>(() =>

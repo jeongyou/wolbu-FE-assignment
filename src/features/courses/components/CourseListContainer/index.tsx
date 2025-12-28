@@ -8,7 +8,7 @@ import SortSelect from '../SortSelect';
 import * as S from './CourseListContainer.styles';
 import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
-import BottomActionBar from '../BottomActionBar';
+import BottomActionBar from '@/shared/components/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
 import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
 
