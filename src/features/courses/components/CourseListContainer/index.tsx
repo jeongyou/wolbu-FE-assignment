@@ -11,6 +11,7 @@ import { Flex } from '@/shared/components/Flex';
 import BottomActionBar from '@/shared/components/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
 import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
+import CreateCourseButton from '../CreateCourseButton';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -38,7 +39,7 @@ const CourseListContainer = ({
 
   return (
     <>
-      <Flex direction='row' justify='flex-end'>
+      <Flex direction='row' justify='space-between' align='center'>
         <SortSelect
           value={sort ?? 'recent'}
           onChange={(next) => {
@@ -46,6 +47,7 @@ const CourseListContainer = ({
             setParams({ ...initialParams, sort: next });
           }}
         />
+        <CreateCourseButton />
       </Flex>
       <CourseList courses={courses} isSelected={isSelected} onToggle={toggle} />
       {error && <S.StatusError>{error}</S.StatusError>}
