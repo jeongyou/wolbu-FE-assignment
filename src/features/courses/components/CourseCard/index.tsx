@@ -23,7 +23,7 @@ const CourseCard = ({ course, checked, onToggle }: CourseCardProps) => {
   };
 
   return (
-    <S.Container onClick={onToggle} disabled={disabled}>
+    <S.Container disabled={disabled}>
       <S.CheckButton
         type='button'
         checked={checked}

@@ -1,23 +1,17 @@
 import { theme } from '@/shared/styles/theme';
 import styled from '@emotion/styled';
 
-export const Container = styled.button`
+export const Container = styled.div<{ disabled?: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   gap: 16px;
   padding: 20px;
   border: 1px solid ${theme.colors.gray[25]};
   border-radius: 16px;
   background: ${theme.colors.white};
 
-  cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
 `;
 
 export const CourseInfo = styled.div`
