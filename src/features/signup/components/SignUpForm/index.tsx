@@ -16,6 +16,7 @@ import { usePasswordField } from '../../hooks/usePasswordField';
 import { useRoleField } from '../../hooks/useRoleField';
 import { useSignUpSubmit } from '../../hooks/useSignUpSubmit';
 import { SignUpFormValues } from '../../types';
+import { useToastContext } from '@/shared/components/Toast/ToastProvider';
 
 const SignUpForm = () => {
   const {
@@ -36,8 +37,10 @@ const SignUpForm = () => {
     mode: 'onChange',
   });
 
+  const { showToast } = useToastContext();
   const { handleSubmit: handleSignUpSubmit, signUpLoading } = useSignUpSubmit({
     setError,
+    onSuccess: showToast,
   });
 
   const { registration: nameRegistration } = useNameField({ register });
