@@ -5,7 +5,12 @@ import styled from '@emotion/styled';
 type FlexProps = {
   direction?: 'row' | 'column';
   align?: 'stretch' | 'flex-start' | 'center' | 'flex-end';
-  justify?: 'flex-start' | 'center' | 'space-between' | 'space-around';
+  justify?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around';
   gap?: number;
 };
 
