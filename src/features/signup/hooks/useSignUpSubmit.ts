@@ -32,7 +32,7 @@ export const useSignUpSubmit = ({
       if (response?.message) {
         onSuccess?.(response.message);
       }
-      router.push('/lectures');
+      router.push('/courses');
     } catch (error) {
       if (error instanceof HttpError) {
         if (error.payload?.code === 'U001' && error.payload?.message) {
