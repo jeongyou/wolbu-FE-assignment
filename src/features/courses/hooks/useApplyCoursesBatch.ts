@@ -19,20 +19,15 @@ export const useApplyCoursesBatch = () => {
 
     try {
       const result = await applyBatch(courseIds);
+
       const successCount = result.success.length;
       const failedCount = result.failed.length;
 
-      if (failedCount > 0) {
-        const failedReasons = result.failed
-          .map((item) => item.reason)
-          .filter(Boolean)
-          .join(', ');
-        showToast(
-          `신청 완료: ${successCount}건, 실패: ${failedCount}건${failedReasons ? ` (${failedReasons})` : ''}`,
-        );
-      } else {
-        showToast('수강 신청이 완료되었습니다');
-      }
+      if (failedCount > 0)
+        showToast(`${successCount}개 신청 완료, ${failedCount}개 실패`);
+      else showToast('수강 신청이 완료되었습니다');
+
+      return result;
     } catch (error) {
       if (error instanceof HttpError && error.payload?.message) {
         showToast(error.payload.message);
