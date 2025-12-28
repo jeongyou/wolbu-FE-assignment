@@ -8,6 +8,7 @@ import SortSelect from '../SortSelect/SortSelect';
 import * as S from './CourseListContainer.styles';
 import { useCourseInfinite } from '../../hooks/useCourseInfinite';
 import { Flex } from '@/shared/components/Flex';
+import { useCourseSelection } from '../../hooks/useCourseSelection';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -24,6 +25,8 @@ const CourseListContainer = ({
 
   const { courses, error, loading, hasMore, sentinelRef, setParams } =
     useCourseInfinite(initialPage, initialParams);
+  const { isSelected, toggle, selectedCount, selectedIdList } =
+    useCourseSelection();
 
   return (
     <>
@@ -36,7 +39,11 @@ const CourseListContainer = ({
           }}
         />
       </Flex>
-      <CourseList courses={courses} />
+      <CourseList
+        courses={courses}
+        isSelected={isSelected}
+        onToggle={toggle}
+      />
       {error && <S.StatusError>{error}</S.StatusError>}
       {loading && <S.Status>불러오는 중...</S.Status>}
       {!hasMore && <S.Status>더 불러올 강의가 없습니다</S.Status>}

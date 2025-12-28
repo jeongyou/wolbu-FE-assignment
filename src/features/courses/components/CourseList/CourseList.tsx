@@ -2,33 +2,29 @@
 
 import type { Course } from '../../api/types';
 import CourseCard from '../CourseCard';
-
-import { useCourseSelection } from '../../hooks/useCourseSelection';
 import * as S from './CourseList.styles';
 
 type CourseListProps = {
   courses: Course[];
+  isSelected: (id: number) => boolean;
+  onToggle: (id: number) => void;
 };
 
-const CourseList = ({ courses }: CourseListProps) => {
-  const { isSelected, toggle } = useCourseSelection();
-
+const CourseList = ({ courses, isSelected, onToggle }: CourseListProps) => {
   if (!courses.length) return <p>강의가 없습니다.</p>;
 
   return (
-    <>
-      <S.List>
-        {courses.map((course, index) => (
-          <li key={`${course.id}-${index}`}>
-            <CourseCard
-              course={course}
-              checked={isSelected(course.id)}
-              onToggle={() => toggle(course.id)}
-            />
-          </li>
-        ))}
-      </S.List>
-    </>
+    <S.List>
+      {courses.map((course, index) => (
+        <li key={`${course.id}-${index}`}>
+          <CourseCard
+            course={course}
+            checked={isSelected(course.id)}
+            onToggle={() => onToggle(course.id)}
+          />
+        </li>
+      ))}
+    </S.List>
   );
 };
 
