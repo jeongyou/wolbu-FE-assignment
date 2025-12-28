@@ -1,9 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+
 import type { CoursePage, GetCoursesParams } from '../../api/types';
 import CourseList from '../CourseList/CourseList';
+import SortSelect from '../SortSelect/SortSelect';
 import * as S from './CourseListContainer.styles';
 import { useCourseInfinite } from '../../hooks/useCourseInfinite';
+import { Flex } from '@/shared/components/Flex';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -14,13 +18,25 @@ const CourseListContainer = ({
   initialPage,
   initialParams,
 }: CourseListContainerProps) => {
+  const [sort, setSort] = useState<GetCoursesParams['sort']>(
+    initialParams.sort ?? 'recent'
+  );
+
   const { courses, error, loading, hasMore, sentinelRef } = useCourseInfinite(
     initialPage,
-    initialParams
+    { ...initialParams, sort }
   );
 
   return (
     <>
+      <Flex direction='row' justify='flex-end'>
+        <SortSelect
+          value={sort ?? 'recent'}
+          onChange={(next) => {
+            setSort(next);
+          }}
+        />
+      </Flex>
       <CourseList courses={courses} />
       {error && <S.StatusError>{error}</S.StatusError>}
       {loading && <S.Status>불러오는 중...</S.Status>}
