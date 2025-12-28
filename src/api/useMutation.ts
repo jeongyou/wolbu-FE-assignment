@@ -19,7 +19,7 @@ export const useMutation = <T, Params extends unknown[]>(
         return await mutateFn(...args);
       } catch (err) {
         setError(err);
-        return null;
+        throw err;
       } finally {
         setLoading(false);
       }
