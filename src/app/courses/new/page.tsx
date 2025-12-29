@@ -1,7 +1,10 @@
+'use client';
+
 import CreateCourseForm from '@/features/course-create/components/CreateCourseForm';
-import RequireInstructor from '@/shared/guards/RequireInstructor';
+
 import Header from '@/shared/components/Header';
 import RequireAuth from '@/shared/guards/RequireAuth';
+import RequireInstructor from '@/shared/guards/RequireInstructor';
 
 const CreateCoursePage = () => {
   return (
