@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import './globals.css';
+import '@/shared/styles/globals.css';
 import EmotionRegistry from '@/shared/styles/EmotionRegistry';
 import AppWrapper from '@/shared/components/AppWrapper';
 import { ToastProvider } from '@/shared/components/Toast/ToastProvider';
