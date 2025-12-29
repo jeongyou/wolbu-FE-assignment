@@ -1,16 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import Header from '@/shared/components/Header';
-import { useRouter } from 'next/navigation';
 import {
   clearEnrollResult,
   EnrollResultStorage,
   readEnrollResult,
 } from '@/features/courses/utils/enrollResultStorage';
-import * as S from './styles';
 import BottomActionBar from '@/shared/components/BottomActionBar';
-import RequireAuth from '@/shared/guards/RequireAuth';
+import Header from '@/shared/components/Header';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import * as S from './styles';
 
 const ConfirmPage = () => {
   const [result] = useState<EnrollResultStorage | null>(() =>
@@ -25,18 +24,18 @@ const ConfirmPage = () => {
 
   if (!result) {
     return (
-      <RequireAuth>
+      <>
         <Header title='수강 신청 결과' />
         <S.Container>
           <S.Message>표시할 신청 결과가 없습니다.</S.Message>
         </S.Container>
         <BottomActionBar label='목록으로 돌아가기' onClick={handleBack} />
-      </RequireAuth>
+      </>
     );
   }
 
   return (
-    <RequireAuth>
+    <>
       <Header title='수강 신청 결과' />
       <S.Container>
         <section>
@@ -75,7 +74,7 @@ const ConfirmPage = () => {
         </section>
       </S.Container>
       <BottomActionBar label='목록으로 돌아가기' onClick={handleBack} />
-    </RequireAuth>
+    </>
   );
 };
 
