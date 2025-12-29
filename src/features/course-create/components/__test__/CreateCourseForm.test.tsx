@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 
-import CreateCourseForm from '..';
-import { useCreateCourseSubmit } from '../../../hooks/useCreateCourseSubmit';
+import CreateCourseForm from '../CreateCourseForm';
+import { useCreateCourseSubmit } from '../../hooks/useCreateCourseSubmit';
 
-vi.mock('../../../hooks/useCreateCourseSubmit');
+vi.mock('../../hooks/useCreateCourseSubmit');
 
 describe('CreateCourseForm', () => {
   beforeEach(() => {

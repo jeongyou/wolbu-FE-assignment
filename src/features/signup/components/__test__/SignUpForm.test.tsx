@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 
-import SignUpForm from '..';
-import { useSignUpSubmit } from '../../../hooks/useSignUpSubmit';
+import SignUpForm from '../SignUpForm';
+import { useSignUpSubmit } from '../../hooks/useSignUpSubmit';
 
-vi.mock('../../../hooks/useSignUpSubmit');
+vi.mock('../../hooks/useSignUpSubmit');
 vi.mock('@/shared/components/Toast/ToastProvider', () => ({
   useToastContext: () => ({ showToast: vi.fn() }),
   ToastProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,

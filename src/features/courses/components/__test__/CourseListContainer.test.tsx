@@ -1,17 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { CoursePage, GetCoursesParams } from '../../../api/types';
-import CourseListContainer from '..';
-import { useCourseInfinite } from '../../../hooks/useCourseInfinite';
-import { useCourseSelection } from '../../../hooks/useCourseSelection';
-import { useApplyCourses } from '../../../hooks/useApplyCoursesAction';
-import { useExcludeClosedCourses } from '../../../hooks/useExcludeClosedCourses';
+import type { CoursePage, GetCoursesParams } from '../../api/types';
+import CourseListContainer from '../CourseListContainer';
+import { useCourseInfinite } from '../../hooks/useCourseInfinite';
+import { useCourseSelection } from '../../hooks/useCourseSelection';
+import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
+import { useExcludeClosedCourses } from '../../hooks/useExcludeClosedCourses';
 
-vi.mock('../../../hooks/useCourseInfinite');
-vi.mock('../../../hooks/useCourseSelection');
-vi.mock('../../../hooks/useApplyCoursesAction');
-vi.mock('../../../hooks/useExcludeClosedCourses');
+vi.mock('../../hooks/useCourseInfinite');
+vi.mock('../../hooks/useCourseSelection');
+vi.mock('../../hooks/useApplyCoursesAction');
+vi.mock('../../hooks/useExcludeClosedCourses');
 
 const makePage = (overrides: Partial<CoursePage> = {}): CoursePage => ({
   courses: [],
