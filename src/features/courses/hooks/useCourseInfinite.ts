@@ -54,7 +54,14 @@ export const useCourseInfinite = (
     rootMargin: '200px 0px',
   });
 
+  const didMountRef = useRef(false);
+
   useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+
     const fetchFirst = async () => {
       setLoading(true);
       setError(null);
@@ -70,7 +77,7 @@ export const useCourseInfinite = (
     };
 
     fetchFirst();
-  }, [params, reset, replaceWithFirstPage]);
+  }, [params, replaceWithFirstPage]);
 
   return { courses, loading, error, hasMore, sentinelRef, setParams };
 };
