@@ -39,8 +39,18 @@ const CourseListContainer = ({
     [courses]
   );
 
+  const uniqueCourses = useMemo(() => {
+    const map = new Map<number, (typeof courses)[number]>();
+
+    courses.forEach((course) => {
+      map.set(course.id, course);
+    });
+
+    return Array.from(map.values());
+  }, [courses]);
+
   const { hideClosed, toggleHideClosed, visibleCourses } =
-    useExcludeClosedCourses(courses);
+    useExcludeClosedCourses(uniqueCourses);
 
   return (
     <>
