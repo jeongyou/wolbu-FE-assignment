@@ -14,6 +14,8 @@ import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
 import CreateCourseButton from '../CreateCourseButton';
 import ExcludeClosedCheckbox from '../ExcludeClosedCheckbox';
 import { useExcludeClosedCourses } from '../../hooks/useExcludeClosedCourses';
+import { buildCourseTitleMap } from '../../utils/buildCourseTitleMap';
+import { dedupeCoursesById } from '../../utils/dedupeCoursesById';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -33,21 +35,9 @@ const CourseListContainer = ({
   const { isSelected, toggle, selectedCount, selectedIdList } =
     useCourseSelection();
   const { applyCourses, loading: applyLoading } = useApplyCourses();
-  const courseTitleMap = useMemo(
-    () =>
-      Object.fromEntries(courses.map((course) => [course.id, course.title])),
-    [courses]
-  );
 
-  const uniqueCourses = useMemo(() => {
-    const map = new Map<number, (typeof courses)[number]>();
-
-    courses.forEach((course) => {
-      map.set(course.id, course);
-    });
-
-    return Array.from(map.values());
-  }, [courses]);
+  const courseTitleMap = useMemo(() => buildCourseTitleMap(courses), [courses]);
+  const uniqueCourses = useMemo(() => dedupeCoursesById(courses), [courses]);
 
   const { hideClosed, toggleHideClosed, visibleCourses } =
     useExcludeClosedCourses(uniqueCourses);
