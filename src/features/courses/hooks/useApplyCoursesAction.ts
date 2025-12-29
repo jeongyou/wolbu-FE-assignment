@@ -17,7 +17,20 @@ export const useApplyCourses = () => {
   ) => {
     if (courseIds.length === 0) return;
     if (courseIds.length === 1) {
-      await applyCourse(courseIds[0]);
+      const courseId = courseIds[0];
+      const result = await applyCourse(courseId);
+      if (result) {
+        saveEnrollResult({
+          success: [
+            {
+              courseId: result.courseId,
+              courseTitle: result.courseTitle ?? courseTitleMap?.[courseId],
+            },
+          ],
+          failed: [],
+        });
+        router.push('/courses/confirm');
+      }
       return;
     }
 
