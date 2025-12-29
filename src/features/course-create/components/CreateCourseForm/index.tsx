@@ -1,6 +1,6 @@
 'use client';
 
-import ConfirmButton from '@/features/signup/components/ConfirmButton';
+import ConfirmButton from '@/shared/components/ConfirmButton';
 import { Flex } from '@/shared/components/Flex';
 import { useForm } from 'react-hook-form';
 import { useMaxStudentsField } from '../../hooks/inputField/useMaxStudentsField';

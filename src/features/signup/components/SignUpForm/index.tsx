@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { Flex } from '@/shared/components/Flex';
-import ConfirmButton from '../ConfirmButton';
+import ConfirmButton from '@/shared/components/ConfirmButton';
 
 import PhoneField from './inputField/PhoneField';
 import PasswordField from './inputField/PasswordField';
