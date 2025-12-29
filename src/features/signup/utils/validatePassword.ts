@@ -7,6 +7,10 @@ export const validatePassword = (value: string) => {
     return '비밀번호는 6~10자여야 합니다';
   }
 
+  if (/[^A-Za-z0-9]/.test(value)) {
+    return '비밀번호는 영문과 숫자만 입력할 수 있습니다';
+  }
+
   const hasLower = /[a-z]/.test(value);
   const hasUpper = /[A-Z]/.test(value);
   const hasNumber = /\d/.test(value);
