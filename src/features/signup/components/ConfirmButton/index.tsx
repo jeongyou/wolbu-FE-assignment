@@ -15,9 +15,11 @@ const ConfirmButton = ({
   ...props
 }: ConfirmButtonProps) => {
   return (
-    <S.Button type='submit' disabled={disabled || loading} {...props}>
-      {loading ? '처리 중...' : children}
-    </S.Button>
+    <S.Container>
+      <S.Button type='submit' disabled={disabled || loading} {...props}>
+        {loading ? '처리 중...' : children}
+      </S.Button>
+    </S.Container>
   );
 };
 

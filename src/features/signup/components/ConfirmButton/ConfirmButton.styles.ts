@@ -1,18 +1,30 @@
 import styled from '@emotion/styled';
 import { theme } from '@/shared/styles/theme';
 
+export const Container = styled.div`
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 12px 0px;
+  background: ${theme.colors.white};
+`;
+
 export const Button = styled.button`
+  width: 100%;
   height: 48px;
-  border-radius: 8px;
   border: none;
-  background-color: ${theme.colors.blue[400]};
+  border-radius: 10px;
+  background: ${theme.colors.blue[400]};
   color: ${theme.colors.white};
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
 
   &:disabled {
-    background-color: ${theme.colors.gray[100]};
+    background: ${theme.colors.gray[200]};
+    color: ${theme.semantic.textSecondary};
     cursor: not-allowed;
   }
 `;
