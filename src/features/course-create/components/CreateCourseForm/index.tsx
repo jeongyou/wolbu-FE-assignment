@@ -1,14 +1,15 @@
 'use client';
 
+import ConfirmButton from '@/features/signup/components/ConfirmButton';
+import { Flex } from '@/shared/components/Flex';
 import { useForm } from 'react-hook-form';
+import { useMaxStudentsField } from '../../hooks/inputField/useMaxStudentsField';
+import { usePriceField } from '../../hooks/inputField/usePriceField';
+import { useTitleField } from '../../hooks/inputField/useTitleField';
+import { useCreateCourseSubmit } from '../../hooks/useCreateCourseSubmit';
 import MaxStudentsField from './inputField/MaxStudentsField';
 import PriceField from './inputField/PriceField';
 import TitleField from './inputField/TitleField';
-import { useTitleField } from '../../hooks/inputField/useTitleField';
-import { usePriceField } from '../../hooks/inputField/usePriceField';
-import { useMaxStudentsField } from '../../hooks/inputField/useMaxStudentsField';
-import { Flex } from '@/shared/components/Flex';
-import BottomActionBar from '@/shared/components/BottomActionBar';
 
 export type CreateCourseFormValues = {
   title: string;
@@ -20,6 +21,8 @@ const CreateCourseForm = () => {
   const {
     register,
     formState: { errors, isValid, isSubmitting },
+    setError,
+    handleSubmit,
   } = useForm<CreateCourseFormValues>({
     defaultValues: {
       title: '',
@@ -35,8 +38,13 @@ const CreateCourseForm = () => {
     register,
   });
 
+  const {
+    handleSubmit: handleCreateCourseSubmit,
+    loading: createCourseLoading,
+  } = useCreateCourseSubmit({ setError });
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} noValidate>
+    <form onSubmit={handleSubmit(handleCreateCourseSubmit)} noValidate>
       <Flex direction='column' gap={16}>
         <TitleField registration={titleRegistration} error={errors.title} />
         <PriceField registration={priceRegistration} error={errors.price} />
@@ -44,12 +52,13 @@ const CreateCourseForm = () => {
           registration={maxStudentsRegistration}
           error={errors.maxStudents}
         />
+        <ConfirmButton
+          disabled={!isValid}
+          loading={isSubmitting || createCourseLoading}
+        >
+          강의 등록하기
+        </ConfirmButton>
       </Flex>
-      <BottomActionBar
-        label='강의 등록하기'
-        disabled={!isValid || isSubmitting}
-        onClick={() => {}}
-      />
     </form>
   );
 };
