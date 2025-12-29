@@ -1,5 +1,4 @@
 import { http } from '@/api/client';
-import { getAccessToken } from '@/shared/auth/authStorage';
 
 export type PostCourseRequest = {
   title: string;
@@ -23,8 +22,6 @@ export type PostCourseResponse = {
 };
 
 export const postCourse = async (payload: PostCourseRequest) => {
-  const token = getAccessToken();
   const path = '/api/courses';
-  const options = token ? { token } : undefined;
-  return http.post<PostCourseResponse>(path, payload, undefined, options);
+  return http.post<PostCourseResponse>(path, payload);
 };

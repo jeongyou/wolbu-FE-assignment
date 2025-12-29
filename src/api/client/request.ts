@@ -2,12 +2,22 @@ import { buildUrl } from './url';
 import { HttpError } from './error';
 import { BASE_URL } from './config';
 import type { RequestOptions, ServerErrorResponse } from './types';
+import { getAccessToken } from '@/shared/auth/authStorage';
 
 const fallbackError = (status?: number): ServerErrorResponse => ({
   code: 'UNKNOWN',
   message: status ? `Request failed (${status})` : 'Network error',
   timestamp: new Date().toISOString(),
 });
+
+const getBrowserAccessToken = () => {
+  if (typeof window === 'undefined') return undefined;
+  try {
+    return getAccessToken() ?? undefined;
+  } catch {
+    return undefined;
+  }
+};
 
 /**
  * fetch를 감싼 HTTP 요청 핵심 로직
@@ -23,12 +33,13 @@ const fallbackError = (status?: number): ServerErrorResponse => ({
  */
 export const request = async <T>(
   path: string,
-  { method = 'GET', params, body, token, headers, cache }: RequestOptions = {},
+  { method = 'GET', params, body, token, headers, cache }: RequestOptions = {}
 ): Promise<T> => {
   const url = new URL(buildUrl(path, params), BASE_URL).toString();
+  const providedToken = token ?? getBrowserAccessToken();
 
   const mergedHeaders: HeadersInit = {
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(providedToken ? { Authorization: `Bearer ${providedToken}` } : {}),
     ...headers,
   };
 
