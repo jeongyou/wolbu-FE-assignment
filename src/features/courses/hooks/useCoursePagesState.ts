@@ -1,27 +1,27 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { CoursePage } from '../api/types';
 
 export const useCoursePagesState = (initialPage: CoursePage) => {
   const [courses, setCourses] = useState(initialPage.courses);
   const [page, setPage] = useState(initialPage.currentPage);
   const [totalPages, setTotalPages] = useState(initialPage.totalPages);
+  const loadedPagesRef = useRef(new Set<number>([initialPage.currentPage]));
 
   const hasMore = useMemo(() => page < totalPages - 1, [page, totalPages]);
 
-  const reset = useCallback(() => {
-    setCourses([]);
-    setPage(0);
-  }, []);
-
   const replaceWithFirstPage = useCallback((first: CoursePage) => {
+    loadedPagesRef.current = new Set([first.currentPage]);
     setCourses(first.courses);
     setPage(first.currentPage);
     setTotalPages(first.totalPages);
   }, []);
 
   const appendNextPage = useCallback((next: CoursePage) => {
+    if (loadedPagesRef.current.has(next.currentPage)) return;
+
+    loadedPagesRef.current.add(next.currentPage);
     setCourses((prev) => [...prev, ...next.courses]);
     setPage(next.currentPage);
     setTotalPages(next.totalPages);
@@ -32,7 +32,6 @@ export const useCoursePagesState = (initialPage: CoursePage) => {
     page,
     totalPages,
     hasMore,
-    reset,
     replaceWithFirstPage,
     appendNextPage,
   };
