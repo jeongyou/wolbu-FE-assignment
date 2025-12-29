@@ -22,7 +22,6 @@ export const useCourseInfinite = (
     courses,
     page,
     hasMore,
-    reset,
     replaceWithFirstPage,
     appendNextPage,
   } = useCoursePagesState(initialPage);
