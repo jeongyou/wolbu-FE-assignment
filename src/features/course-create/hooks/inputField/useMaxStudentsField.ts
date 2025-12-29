@@ -1,8 +1,5 @@
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
+
 import { CreateCourseFormValues } from '../../components/CreateCourseForm';
 import { validateMaxStudents } from '../../utils/validateMaxStudents';
 
