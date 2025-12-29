@@ -12,8 +12,8 @@ import BottomActionBar from '@/shared/components/BottomActionBar';
 
 export type CreateCourseFormValues = {
   title: string;
-  price: number;
-  maxStudents: number;
+  price: number | null;
+  maxStudents: number | null;
 };
 
 const CreateCourseForm = () => {
@@ -23,8 +23,8 @@ const CreateCourseForm = () => {
   } = useForm<CreateCourseFormValues>({
     defaultValues: {
       title: '',
-      price: 0,
-      maxStudents: 0,
+      price: null,
+      maxStudents: null,
     },
     mode: 'onChange',
   });
