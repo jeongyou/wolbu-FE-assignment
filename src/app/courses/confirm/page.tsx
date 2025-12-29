@@ -29,7 +29,9 @@ const ConfirmPage = () => {
         <S.Container>
           <S.Message>표시할 신청 결과가 없습니다.</S.Message>
         </S.Container>
-        <BottomActionBar label='목록으로 돌아가기' onClick={handleBack} />
+        <BottomActionBar type='button' onClick={handleBack}>
+          목록으로 돌아가기
+        </BottomActionBar>
       </>
     );
   }
@@ -73,7 +75,9 @@ const ConfirmPage = () => {
           )}
         </section>
       </S.Container>
-      <BottomActionBar label='목록으로 돌아가기' onClick={handleBack} />
+      <BottomActionBar type='button' onClick={handleBack}>
+        목록으로 돌아가기
+      </BottomActionBar>
     </>
   );
 };

@@ -1,22 +1,25 @@
 'use client';
 
+import { ComponentProps } from 'react';
 import * as S from './BottomActionBar.styles';
 
 type BottomActionBarProps = {
-  label: string;
+  children: string;
+  loading?: boolean;
   disabled?: boolean;
-  onClick: () => void;
-};
+} & ComponentProps<'button'>;
 
 const BottomActionBar = ({
-  label,
-  disabled = false,
-  onClick,
+  children,
+  loading = false,
+  disabled,
+  type = 'submit',
+  ...props
 }: BottomActionBarProps) => {
   return (
     <S.Container>
-      <S.Button type='button' disabled={disabled} onClick={onClick}>
-        {label}
+      <S.Button type={type} disabled={disabled || loading} {...props}>
+        {loading ? '처리 중...' : children}
       </S.Button>
     </S.Container>
   );

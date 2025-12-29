@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { Flex } from '@/shared/components/Flex';
-import ConfirmButton from '@/shared/components/ConfirmButton';
+import BottomActionBar from '@/shared/components/BottomActionBar';
 
 import PhoneField from './inputField/PhoneField';
 import PasswordField from './inputField/PasswordField';
@@ -80,12 +80,12 @@ const SignUpForm = () => {
 
         <RoleField registration={roleRegistration} error={errors.role} />
 
-        <ConfirmButton
+        <BottomActionBar
           disabled={!isValid}
           loading={isSubmitting || signUpLoading}
         >
           가입하기
-        </ConfirmButton>
+        </BottomActionBar>
       </Flex>
     </form>
   );

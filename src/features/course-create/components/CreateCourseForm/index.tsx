@@ -1,7 +1,7 @@
 'use client';
 
-import ConfirmButton from '@/shared/components/ConfirmButton';
 import { Flex } from '@/shared/components/Flex';
+import BottomActionBar from '@/shared/components/BottomActionBar';
 import { useForm } from 'react-hook-form';
 import { useMaxStudentsField } from '../../hooks/inputField/useMaxStudentsField';
 import { usePriceField } from '../../hooks/inputField/usePriceField';
@@ -52,12 +52,12 @@ const CreateCourseForm = () => {
           registration={maxStudentsRegistration}
           error={errors.maxStudents}
         />
-        <ConfirmButton
+        <BottomActionBar
           disabled={!isValid}
           loading={isSubmitting || createCourseLoading}
         >
           강의 등록하기
-        </ConfirmButton>
+        </BottomActionBar>
       </Flex>
     </form>
   );
