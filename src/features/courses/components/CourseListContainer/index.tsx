@@ -12,6 +12,8 @@ import BottomActionBar from '@/shared/components/BottomActionBar';
 import { useCourseSelection } from '../../hooks/useCourseSelection';
 import { useApplyCourses } from '../../hooks/useApplyCoursesAction';
 import CreateCourseButton from '../CreateCourseButton';
+import ExcludeClosedCheckbox from '../ExcludeClosedCheckbox';
+import { useExcludeClosedCourses } from '../../hooks/useExcludeClosedCourses';
 
 type CourseListContainerProps = {
   initialPage: CoursePage;
@@ -37,19 +39,32 @@ const CourseListContainer = ({
     [courses]
   );
 
+  const { hideClosed, toggleHideClosed, visibleCourses } =
+    useExcludeClosedCourses(courses);
+
   return (
     <>
       <Flex direction='row' justify='space-between' align='center'>
-        <SortSelect
-          value={sort ?? 'recent'}
-          onChange={(next) => {
-            setSort(next);
-            setParams({ ...initialParams, sort: next });
-          }}
-        />
+        <Flex gap={8} align='center'>
+          <SortSelect
+            value={sort ?? 'recent'}
+            onChange={(next) => {
+              setSort(next);
+              setParams({ ...initialParams, sort: next });
+            }}
+          />
+          <ExcludeClosedCheckbox
+            checked={hideClosed}
+            onChange={toggleHideClosed}
+          />
+        </Flex>
         <CreateCourseButton />
       </Flex>
-      <CourseList courses={courses} isSelected={isSelected} onToggle={toggle} />
+      <CourseList
+        courses={visibleCourses}
+        isSelected={isSelected}
+        onToggle={toggle}
+      />
       {error && <S.StatusError>{error}</S.StatusError>}
       {loading && <S.Status>불러오는 중...</S.Status>}
       {!hasMore && <S.Status>더 불러올 강의가 없습니다</S.Status>}
