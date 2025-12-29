@@ -7,7 +7,7 @@ export const Container = styled.div`
   right: 0;
   bottom: 0;
 
-  padding: 12px 16px;
+  padding: 12px 0px;
   background: ${theme.colors.white};
 `;
 
